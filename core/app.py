@@ -2,7 +2,6 @@ import sys
 import traceback
 
 from flask import Flask, jsonify
-import pymongo
 import logging
 
 from gevent.pywsgi import WSGIServer
@@ -11,8 +10,7 @@ from werkzeug.exceptions import HTTPException
 from core.exceptions import PlatformException
 from core.view.api import api_bp
 
-client = pymongo.MongoClient()
-db = client.wedding
+
 
 logger = logging.getLogger(__name__)
 
