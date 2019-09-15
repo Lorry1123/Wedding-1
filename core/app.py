@@ -49,6 +49,7 @@ def init_blueprint(app):
 def create_app():
     init_logging()
     app = Flask("Wedding")
+    app.config["PROPAGATE_EXCEPTIONS"] = True
     init_blueprint(app)
     init_error_handler(app)
     return app
