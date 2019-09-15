@@ -4,7 +4,6 @@ import traceback
 from flask import Flask, jsonify
 import logging
 
-from gevent.pywsgi import WSGIServer
 from werkzeug.exceptions import HTTPException
 
 from core.exceptions import PlatformException
@@ -18,7 +17,7 @@ def init_logging():
     handler = logging.StreamHandler(sys.stdout)
     handler.setLevel("INFO")
     formatter = logging.Formatter("[%(asctime)s] [%(levelname)-8s]  [%(module)-10s:%(lineno)5d]  "
-                                  "[%(thread)d] %(message)s")
+                                  "[%(process)d] [%(thread)d] %(message)s")
     handler.setFormatter(formatter)
 
     log = logging.getLogger()
@@ -55,7 +54,9 @@ def create_app():
     return app
 
 
-if __name__ == "__main__":
-    app = create_app()
-    http_server = WSGIServer(('0.0.0.0', 9002), app)
-    http_server.serve_forever()
+app = create_app()
+
+
+@app.before_request
+def func():
+    logger.info("before request")
