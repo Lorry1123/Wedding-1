@@ -1,7 +1,7 @@
 import sys
 import traceback
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import logging
 
 from werkzeug.exceptions import HTTPException
@@ -59,4 +59,7 @@ app = create_app()
 
 @app.before_request
 def func():
-    logger.info("before request")
+    url = request.path
+    method = request.method
+    body = request.get_json()
+    logger.info("Received a new request. %s %s, Body:%s", method, url, body)
