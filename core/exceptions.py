@@ -4,3 +4,7 @@ class PlatformException(Exception):
 
 class InvalidArgumentException(PlatformException):
     code = 403
+
+
+class EmptyLotteryPool(PlatformException):
+    code = 403

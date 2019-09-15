@@ -11,7 +11,6 @@ from core.exceptions import PlatformException
 from core.view.api import api_bp
 
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -58,5 +57,6 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
-    http_server = WSGIServer(('0.0.0.0', 9002), app)
-    http_server.serve_forever()
+    # http_server = WSGIServer(('0.0.0.0', 9002), app)
+    # http_server.serve_forever()
+    app.run(debug=True)
