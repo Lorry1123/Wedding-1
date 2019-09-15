@@ -1,0 +1,6 @@
+pymongo
+beaker
+flask
+flask-restful
+gevent
+redis

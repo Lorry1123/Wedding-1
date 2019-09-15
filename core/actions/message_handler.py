@@ -3,6 +3,7 @@ import time
 from core.actions.base_handler import BaseHandler
 from core.actions.user_handler import UserHandler
 from core.database import db
+from core.utils import beaker_cache
 
 
 class MsgHandler(BaseHandler):
@@ -21,3 +22,8 @@ class MsgHandler(BaseHandler):
         kwargs.update({"create_t": time.time(), "user_id": user_id})
         result = self.collection.insert_one(kwargs)
         return MsgHandler(result.inserted_id)
+
+    @beaker_cache
+    def list_all(self):
+        result = self.collection.find()
+        return result

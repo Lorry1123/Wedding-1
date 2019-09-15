@@ -15,9 +15,12 @@ class UserHandler(BaseHandler):
         object_id = result.upserted_id
         return UserHandler(object_id)
 
+    def list_all(self):
+        result = self.collection.find()
+        return result
+
     def lottery(self):
         users = self.list_all()
         count = len(users)
         idx = random.randint(count)
-        res = {"winner": users[idx], "users": users}
-        return res
+        return users[idx], users
