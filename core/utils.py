@@ -1,3 +1,6 @@
+# coding=utf-8
+import json
+
 import requests
 import logging
 from beaker.cache import CacheManager
@@ -14,7 +17,7 @@ beaker_opts = {
 beaker_cache = CacheManager(**parse_cache_config_options(beaker_opts))
 
 
-@beaker_cache.cache("list_msgs", expire=5400)
+@beaker_cache.cache("get_access_token", expire=5400)
 def get_access_token():
     url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential"
     url += "&appid={appid}&secret={secret}"
@@ -28,10 +31,14 @@ def get_access_token():
 def check_msg_sec(msg):
     try:
         access_token = get_access_token()
-        url = "https://api.weixin.qq.com/wxa/msg_sec_check?access_token=%s" % access_token
+        query = {"access_token": access_token}
+        url = "https://api.weixin.qq.com/wxa/msg_sec_check"
         body = {"content": msg}
-        logger.info("url: %s, body: %s", url, body)
-        resp = requests.post(url, json=body)
+        headers = {
+            "Content-Type": "application/json; charset=UTF-8",
+        }
+        logger.info("url: %s, data: %s", url, body)
+        resp = requests.request("POST", url, data=body, headers=headers, params=query)
         resp.raise_for_status()
         res = resp.json()
     except Exception as e:
