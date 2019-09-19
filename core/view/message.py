@@ -7,7 +7,7 @@ from core.utils import beaker_cache
 
 class Messages(Resource):
 
-    @beaker_cache.cache("list_msgs")
+    @beaker_cache.cache("list_msgs", expire=1)
     def post(self):
         res = MsgHandler().list_all()
         res = MsgSchema().dump(res, many=True)
@@ -19,5 +19,5 @@ class NewMessages(Resource):
     def post(self):
         body = request.get_json()
         body = MsgSchema().load(body)
-        MsgHandler().create(**body)
-        return {"status": "ok"}, 200
+        status, errmsg = MsgHandler().create(**body)
+        return {"status": status, "errmsg": errmsg}, 200

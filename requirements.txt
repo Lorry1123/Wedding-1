@@ -6,3 +6,4 @@ gevent
 redis
 gunicorn
 marshmallow
+requests
