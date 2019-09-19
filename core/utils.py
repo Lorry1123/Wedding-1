@@ -33,9 +33,10 @@ def check_msg_sec(msg):
         access_token = get_access_token()
         query = {"access_token": access_token}
         url = "https://api.weixin.qq.com/wxa/msg_sec_check"
-        body = {"content": msg}
+        body = "{\"content\": \"%s\"}" % msg
+        body = body.encode("utf-8")
         headers = {
-            "Content-Type": "application/json; charset=UTF-8",
+            "Content-Type": "application/json",
         }
         logger.info("url: %s, data: %s", url, body)
         resp = requests.request("POST", url, data=body, headers=headers, params=query)
