@@ -30,6 +30,7 @@ def check_msg_sec(msg):
         access_token = get_access_token()
         url = "https://api.weixin.qq.com/wxa/msg_sec_check?access_token=%s" % access_token
         body = {"content": msg}
+        logger.info("url: %s, body: %s", url, body)
         resp = requests.post(url, json=body)
         resp.raise_for_status()
         res = resp.json()
