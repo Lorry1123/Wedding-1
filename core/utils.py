@@ -37,6 +37,8 @@ def check_msg_sec(msg):
         logger.exception(e)
         return 5000, "网络异常"
 
+    logger.info("Msg: %s, res:%s", msg, res)
+
     if res["errcode"] == 0:
         return 0, "ok"
     return 4000, "敏感信息"
