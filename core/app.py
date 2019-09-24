@@ -8,6 +8,7 @@ from werkzeug.exceptions import HTTPException
 
 from core.exceptions import PlatformException
 from core.view.api import api_bp
+from core.view.web import web_bp
 
 
 logger = logging.getLogger(__name__)
@@ -44,6 +45,7 @@ def init_error_handler(app):
 
 def init_blueprint(app):
     app.register_blueprint(api_bp)
+    app.register_blueprint(web_bp)
 
 
 def create_app():
