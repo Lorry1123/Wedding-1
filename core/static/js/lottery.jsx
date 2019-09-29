@@ -1,16 +1,8 @@
 const { useState, useEffect } = React;
 
 const LotteryPage = (props) => {
-    // const [users, setUsers] = useState([]);
-    // const [winner, setWinner] = useState({nick: '???', avatar: ''});
     const [disable, setDisable] = useState(false);
     const [flash_user, setFlashUser] = useState({nick: '???', avatar: ''});
-
-    // let winner = {nick: '???', avatar: ''};
-
-    // useEffect(() => {
-    //     getWinners();
-    // }, []);
 
     const getWinners = () => {
         if (disable) {
@@ -21,9 +13,6 @@ const LotteryPage = (props) => {
 
         $.post('/wedding/users', {}, (res) => {
             console.log(res);
-            // setUsers(res.users);
-            // setWinner(res.winner);
-            // winner = res.winner;
             
             start_flash_user(0, res.users, res.winner);
         });
